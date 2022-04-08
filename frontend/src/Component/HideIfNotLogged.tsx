@@ -1,8 +1,9 @@
 import {LoginResponseInterface} from "../Interface/ResponsesInterfaces";
+import React from "react";
 
 interface HideIfNotLoggedPropsInterface {
     loggedUser: LoginResponseInterface,
-    children: JSX.Element
+    children: any
 }
 
 export default function HideIfNotLogged({loggedUser, children}: HideIfNotLoggedPropsInterface) {

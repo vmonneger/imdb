@@ -11,6 +11,7 @@ import BlogList from "./Component/BlogList";
 import HideIfNotLogged from "./Component/HideIfNotLogged";
 import BlogForm from "./Component/BlogForm";
 import useGetCookies from "./Hook/useGetCookies";
+import useEraseCookie from "./Hook/useEraseCookie";
 
 export default function App() {
     const [loggedUser, setLoggedUser] = useState<LoginResponseInterface>({
@@ -28,6 +29,7 @@ export default function App() {
     const register = useRegister();
     const getBlogList = useGetBlogList();
     const cookies = useGetCookies();
+    const eraseCookie = useEraseCookie();
 
     useEffect(() => {
         if (Object.keys(cookies).includes('hetic_token') && Object.keys(cookies).includes('hetic_username')) {
@@ -60,6 +62,15 @@ export default function App() {
             })
     }, [needsUpdate])
 
+    const handleDisconnect = () => {
+        setLoggedUser({
+            status: 'error',
+            token: "",
+            username: ""
+        });
+        eraseCookie();
+    }
+
     return (
         <div className='container mt-5'>
             <HideIfLogged loggedUser={loggedUser}>
@@ -67,6 +78,7 @@ export default function App() {
             </HideIfLogged>
 
             <HideIfNotLogged loggedUser={loggedUser}>
+                <button className='btn btn-danger d-block mx-auto mb-3' onClick={handleDisconnect}>Disconnect</button>
                 <BlogForm loggedUser={loggedUser} setNeedsUpdate={setNeedsUpdate}/>
             </HideIfNotLogged>
 
