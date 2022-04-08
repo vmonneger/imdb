@@ -6,6 +6,16 @@ require_once 'Classes/User.php';
 require_once 'Classes/Blog.php';
 
 $token = str_replace('Bearer ', '', getallheaders()['Authorization'] ?? '') ?? '';
+
+/**
+ * Je pourrais ne pas passer d'authorization en header
+ * et simplement me servir du fait que le cookie d'auth
+ * est passé également en requête !
+ * Attention cependant à la validité du cookie.
+ * Il faudrait le vérifier avant la requête, on en reparle
+ * avec les Interceptor de Axios !
+ */
+//$token = $_COOKIE['hetic_token'] ?? '';
 $blogTitle = $_POST['title'] ?? '';
 $blogContent = $_POST['content'] ?? '';
 
@@ -53,7 +63,8 @@ if ($query->execute()) {
     if ($update->execute()) {
         echo json_encode([
             'status' => 'success',
-            'message' => 'Blog saved'
+            'message' => 'Blog saved',
+            'cookie' => $_COOKIE['hetic_token']
         ]);
     }
 }
