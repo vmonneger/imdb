@@ -64,7 +64,7 @@ if ($query->execute()) {
         echo json_encode([
             'status' => 'success',
             'message' => 'Blog saved',
-            'cookie' => $_COOKIE['hetic_token']
+            'cookie' => $_COOKIE['hetic_token'] ?? 'expired cookie'
         ]);
     }
 }
