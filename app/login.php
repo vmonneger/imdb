@@ -3,6 +3,7 @@
 require_once 'headers.php';
 require_once 'Classes/PDOFactory.php';
 require_once 'Classes/User.php';
+require_once 'Classes/CookieHelper.php';
 
 $username = $_SERVER['PHP_AUTH_USER'] ?? '';
 $password = $_SERVER['PHP_AUTH_PW'] ?? '';
@@ -24,6 +25,9 @@ if ($query->execute()) {
     /** @var User $user */
     $user = $query->fetch();
     if ($user && password_verify($password, $user->getPassword())) {
+
+        CookieHelper::setCookie($user->getToken(), $user->getUsername());
+
         echo json_encode([
             'status' => 'success',
             'username' => $user->getUsername(),

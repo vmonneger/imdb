@@ -10,6 +10,7 @@ import useGetBlogList from "./Hook/useGetBlogList";
 import BlogList from "./Component/BlogList";
 import HideIfNotLogged from "./Component/HideIfNotLogged";
 import BlogForm from "./Component/BlogForm";
+import useGetCookies from "./Hook/useGetCookies";
 
 export default function App() {
     const [loggedUser, setLoggedUser] = useState<LoginResponseInterface>({
@@ -19,18 +20,33 @@ export default function App() {
     })
     const [localUser, setLocalUser] = useState<LocalUserInterface>({password: "", username: ""})
     const [blogList, setBlogList] = useState<BlogInterface[]>([])
+    // Determines if the user wants to LogIn or to Register
     const [needsLogin, setNeedsLogin] = useState<boolean>(true)
     const [needsUpdate, setNeedsUpdate] = useState<boolean>(false)
 
     const login = useLogin();
     const register = useRegister();
     const getBlogList = useGetBlogList();
+    const cookies = useGetCookies();
 
     useEffect(() => {
-        if (needsLogin) {
+        if (Object.keys(cookies).includes('hetic_token') && Object.keys(cookies).includes('hetic_username')) {
+            console.log('got cookies !', loggedUser)
+            setLoggedUser(prev => ({
+                ...prev,
+                username: cookies.hetic_username,
+                token: cookies.hetic_token
+            }))
+        }
+    }, [])
+
+    useEffect(() => {
+        if (needsLogin && localUser.username !== '') {
+            console.log('login ?')
             login(localUser.username, localUser.password)
                 .then(data => setLoggedUser(data))
-        } else {
+        } else if (!needsLogin && localUser.username !== '') {
+            console.log('register ?', localUser.username)
             register(localUser.username, localUser.password)
                 .then(data => setLoggedUser(data))
         }

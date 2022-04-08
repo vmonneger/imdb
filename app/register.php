@@ -4,6 +4,7 @@ require_once 'headers.php';
 require_once 'Classes/PDOFactory.php';
 require_once 'Classes/TokenHelper.php';
 require_once 'Classes/User.php';
+require_once 'Classes/CookieHelper.php';
 
 $username = $_REQUEST['username'] ?? '';
 $password = $_REQUEST['password'] ?? '';
@@ -43,6 +44,8 @@ if ($insert->execute()) {
     $return->setFetchMode(PDO::FETCH_CLASS, User::class);
     /** @var User $newUser */
     $newUser = $return->fetch();
+
+    CookieHelper::setCookie($newUser->getToken(), $newUser->getUsername());
 
     echo json_encode([
         'status' => 'success',

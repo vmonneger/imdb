@@ -5,6 +5,7 @@ export default function useRegister() {
         return fetch('http://localhost:2345/register.php', {
             method: 'POST',
             mode: 'cors',
+            credentials: 'include',
             body: new URLSearchParams({
                 username: username,
                 password: password
