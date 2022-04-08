@@ -24,6 +24,7 @@ export default function BlogForm({loggedUser, setNeedsUpdate}: BlogFormPropsInte
         if (loggedUser.token != null) {
             postBlog(loggedUser.token, localBlog)
                 .then(data => {
+                    console.log(data)
                     setLocalBlog({content: "", title: ""})
                     setNeedsUpdate(true);
                 })
