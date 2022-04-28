@@ -1,5 +1,7 @@
 <?php
 
+require_once './vendor/autoload.php';
+require_once 'Classes/TokenHelper.php';
 require_once 'headers.php';
 require_once 'Classes/PDOFactory.php';
 require_once 'Classes/User.php';
@@ -26,12 +28,15 @@ if ($query->execute()) {
     $user = $query->fetch();
     if ($user && password_verify($password, $user->getPassword())) {
 
-        CookieHelper::setCookie($user->getToken(), $user->getUsername());
+        $jwt = TokenHelper::buildJWT($user);
+
+
+        CookieHelper::setCookie($jwt, $user->getUsername());
 
         echo json_encode([
             'status' => 'success',
             'username' => $user->getUsername(),
-            'token' => $user->getToken()
+            'token' => $jwt
         ]);
         exit;
     }

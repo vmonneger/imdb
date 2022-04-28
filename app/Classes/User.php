@@ -5,7 +5,6 @@ class User
     private int $id;
     private string $username;
     private string $password;
-    private string $token;
 
     /**
      * @return string
@@ -40,24 +39,6 @@ class User
     public function setPassword(string $password): User
     {
         $this->password = $password;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getToken(): string
-    {
-        return $this->token;
-    }
-
-    /**
-     * @param string $token
-     * @return User
-     */
-    public function setToken(string $token): User
-    {
-        $this->token = $token;
         return $this;
     }
 

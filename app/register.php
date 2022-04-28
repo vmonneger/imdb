@@ -1,5 +1,6 @@
 <?php
 
+require_once './vendor/autoload.php';
 require_once 'headers.php';
 require_once 'Classes/PDOFactory.php';
 require_once 'Classes/TokenHelper.php';
@@ -45,12 +46,14 @@ if ($insert->execute()) {
     /** @var User $newUser */
     $newUser = $return->fetch();
 
-    CookieHelper::setCookie($newUser->getToken(), $newUser->getUsername());
+    $jwt = TokenHelper::buildJWT($newUser);
+
+    CookieHelper::setCookie($jwt, $newUser->getUsername());
 
     echo json_encode([
         'status' => 'success',
         'username' => $newUser->getUsername(),
-        'token' => $newUser->getToken()
+        'token' => $jwt
     ]);
     exit;
 }

@@ -12,6 +12,7 @@ import HideIfNotLogged from "./Component/HideIfNotLogged";
 import BlogForm from "./Component/BlogForm";
 import useGetCookies from "./Hook/useGetCookies";
 import useEraseCookie from "./Hook/useEraseCookie";
+import axios from "axios";
 
 export default function App() {
     const [loggedUser, setLoggedUser] = useState<LoginResponseInterface>({
