@@ -1,6 +1,6 @@
-# Un petit Blog OnePage React PHP
+# Imdb like
+Pas terminé du tout
 
-Backend PHP Docker, donc pour faire tourner tout ça :
 ````shell
 docker-compose up -d &&
 cd ./frontend &&
@@ -8,6 +8,6 @@ yarn &&
 yarn dev
 ````
 
-Vous pouvez créer vos propres identifiants, mais de base : 
+Account already available in the DB : 
 - FrancisHuster : password
 - JohnBob : password
