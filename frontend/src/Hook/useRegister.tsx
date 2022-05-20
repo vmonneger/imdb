@@ -4,7 +4,7 @@ import axios from "axios";
 export default function useRegister() {
     return (username: string, password: string): Promise<LoginResponseInterface> => {
         return axios({
-            url: 'http://localhost:2345/register.php',
+            url: 'http://localhost:8000/register.php',
             method: 'post',
             withCredentials: true,
             data: new URLSearchParams({

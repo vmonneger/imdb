@@ -29,9 +29,10 @@ USE `data`;
 -- Structure de la table `Blog`
 --
 
-CREATE TABLE `Blog` (
+CREATE TABLE `Comment` (
   `id` int(11) NOT NULL,
-  `authorId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  `movieId` int(11) NOT NULL,
   `date` datetime NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL
@@ -64,7 +65,7 @@ INSERT INTO `User` (`id`, `username`, `password`) VALUES
 --
 -- Index pour la table `Blog`
 --
-ALTER TABLE `Blog`
+ALTER TABLE `Comment`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -80,7 +81,7 @@ ALTER TABLE `User`
 --
 -- AUTO_INCREMENT pour la table `Blog`
 --
-ALTER TABLE `Blog`
+ALTER TABLE `Comment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --

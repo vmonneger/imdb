@@ -34,10 +34,9 @@ if ($userAlreadyExists) {
     exit;
 }
 
-$insert = $pdo->prepare('INSERT INTO User (`username`, `password`, token) VALUES (:username, :password, :token)');
+$insert = $pdo->prepare('INSERT INTO User (`username`, `password`) VALUES (:username, :password)');
 $insert->bindValue('username', $username, PDO::PARAM_STR);
 $insert->bindValue('password', password_hash($password, PASSWORD_BCRYPT), PDO::PARAM_STR);
-$insert->bindValue('token', TokenHelper::buildToken(), PDO::PARAM_STR);
 
 if ($insert->execute()) {
     $lastInsertId = $pdo->lastInsertId();

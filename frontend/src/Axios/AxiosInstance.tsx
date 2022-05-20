@@ -4,7 +4,7 @@ import * as jose from 'jose';
 import useRefreshToken from "../Hook/useRefreshToken";
 
 export const AxiosInstance = axios.create({
-    baseURL: 'http://localhost:2345/',
+    baseURL: 'http://localhost:8000/',
     withCredentials: true
 });
 
